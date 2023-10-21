@@ -1,0 +1,1 @@
+web: gunicorn IMDb2:app
