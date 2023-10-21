@@ -28,9 +28,15 @@ h1 {
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
+} 
+
+h2 {
+    color: #941616; 
+    font-size: large; 
+    text-align: center;
 }
 
-.btn {
+#btn {
     background-color: #007bff;
     color: #fff;
     border: none;
