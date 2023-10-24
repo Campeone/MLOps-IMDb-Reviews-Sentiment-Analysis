@@ -7,8 +7,8 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__, static_folder='static')
 # model and tokenizer file path
-model_pth = r'C:\Users\llllllllll\Documents\ML_Projects\MMLOps Movie Review Sentiment Analysis\models\IMDb_reviews_SANew.h5'
-token_pth = r'C:\Users\llllllllll\Documents\ML_Projects\MMLOps Movie Review Sentiment Analysis\models\vocabulary_tokens2.pkl'
+model_pth = r'models\IMDb_reviews_SANew.h5'
+token_pth = r'models\vocabulary_tokens2.pkl'
 
 # Load your sentiment analysis model
 model = tf.keras.models.load_model(model_pth)
@@ -19,7 +19,6 @@ vocabulary_tokens = joblib.load(token_pth)
 logging.basicConfig(filename="imdb.log", level=logging.INFO, 
                     format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s') 
 
-# logging.info('Model and Vocabulary tokens loading..........')
 
 
 @app.route('/')
@@ -41,7 +40,9 @@ def predict():
         review_sequence = vocabulary_tokens.texts_to_sequences([movie_review])
         review_padded = pad_sequences(review_sequence, maxlen=500)
 
+        # log the movie name and review
         app.logger.info(f'Sentiment Analysis requested for this review: "{movie_review}" for a movie titled {movie_name}')
+        
         # Perform sentiment analysis using your model
         pred_prob = model.predict(review_padded)
 
@@ -56,10 +57,10 @@ def predict():
         
         output = f'The predicted sentiment is {sentimentR}, with a confidence level of {round(float(deg[0])*100, 2)}%'
 
+        # log the prediction probabilities and the predicted sentiment
         app.logger.info(f'And got a {pred_prob} prediction probabilities, and a {sentimentR} sentiment')
 
         return render_template('index.html', sentiment = output) 
-    
     
      # For the initial GET request (before the form is submitted), provide a default value
     return render_template('index.html', sentiment="yeA")
