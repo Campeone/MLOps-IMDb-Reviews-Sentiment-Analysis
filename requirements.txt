@@ -6,6 +6,6 @@ keras==2.10.0
 flask==2.2.2
 itsdangerous==2.0.1
 jinja2==3.1.2 
-werkzeug==2.2.3 S
+werkzeug==2.2.3
 gunicorn==21.2.0 
 itsdangerous==2.0.1 
