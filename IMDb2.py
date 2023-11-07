@@ -7,8 +7,8 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__, static_folder='static')
 # model and tokenizer file path
-model_pth = r'models\IMDb_reviews_SANew.h5'
-token_pth = r'models\vocabulary_tokens2.pkl'
+model_pth = 'models/IMDb_reviews_SANew.h5'
+token_pth = 'models/vocabulary_tokens2.pkl'
 
 # Load your sentiment analysis model
 model = tf.keras.models.load_model(model_pth)
